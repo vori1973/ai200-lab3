@@ -1,0 +1,12 @@
+version: v1.1.0
+steps:
+  - id: build
+    build: -t {{.Run.Registry}}/webapp:{{.Run.ID}} -f Dockerfile .
+  - id: webserver
+    cmd: {{.Run.Registry}}/webapp:{{.Run.ID}}
+    detach: true
+  - id: smoketest
+    cmd: curlimages/curl curl -f http://webserver:80
+  - id: push
+    push:
+      - {{.Run.Registry}}/webapp:{{.Run.ID}}

@@ -1,0 +1,7 @@
+version: v1.1.0
+steps:
+  - id: build
+    build: -t {{.Run.Registry}}/webapp:{{.Run.ID}} -f Dockerfile .
+  - id: push
+    push:
+      - {{.Run.Registry}}/webapp:{{.Run.ID}}
